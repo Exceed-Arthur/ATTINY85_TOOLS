@@ -1,17 +1,17 @@
 #include <RCSwitch.h>
+
+#define RCSwitchDisableReceiving
 RCSwitch mySwitch = RCSwitch();
 
 void setup() {
-  Serial.begin(9600);
-  mySwitch.enableReceive(0); // Uses interrupt on pin 2 I beleive
-  Serial.println("ready");
+  pinMode(1, OUTPUT);
+  mySwitch.enableTransmit(2);
 }
 
-void loop() {
-if (mySwitch.available()) {
-
-    Serial.print("Received ");
-    Serial.print( mySwitch.getReceivedValue() );
-    Serial.println("");
-  }
+void loop() {    
+    mySwitch.send("000110110001010100010001");  
+    digitalWrite(1, HIGH);
+    delay(250);  
+    digitalWrite(1, LOW);
+    delay(250);  
 }
